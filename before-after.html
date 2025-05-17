@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HotHAIR - Галерея До/После</title>
+    <meta name="description" content="Галерея работ до и после в салоне красоты HotHAIR.">
+    <meta name="theme-color" content="#121212">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        .before-after-gallery {
+            padding: 80px 0;
+            background-color: var(--darker-bg);
+        }
+        .before-after-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .ba-item {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: var(--card-border);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+        .ba-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .ba-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .ba-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+         .ba-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .comparison-slider {
+            width: 100%;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            border: var(--card-border);
+            box-shadow: var(--card-shadow);
+            cursor: ew-resize;
+        }
+        .comparison-slider img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            width: 100%;
+            pointer-events: none;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .comparison-slider .img-comp-img {
+            position: absolute;
+            width: auto;
+            height: auto;
+            overflow: hidden;
+        }
+        .comparison-slider .img-comp-img img {
+            display: block;
+            vertical-align: middle;
+        }
+        .comparison-slider .img-comp-slider {
+            position: absolute;
+            z-index: 9;
+            cursor: ew-resize;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            opacity: 0.7;
+            border-radius: 50%;
+            border: 2px solid var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+         .comparison-slider .img-comp-slider:hover {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <header id="siteHeader">
+        <div class="logo-container">
+             <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--accent-color)" />
+                        <stop offset="100%" stop-color="var(--secondary-color)" />
+                    </linearGradient>
+                </defs>
+                <text x="20" y="60" class="logo-text">Hot</text>
+                <text x="80" y="60" class="logo-text highlight">HAIR</text>
+                <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#logoGradient)" stroke-width="3" fill="none" />
+                <circle class="logo-accent" cx="30" cy="30" r="5" />
+                <circle class="logo-accent" cx="90" cy="30" r="5" />
+            </svg>
+        </div>
+        
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="mainNav">
+            <ul>
+                <li><a href="index.html#services">Услуги</a></li>
+                <li><a href="index.html#about">О нас</a></li>
+                <li><a href="index.html#gallery">Галерея</a></li>
+                <li><a href="before-after.html">До/После</a></li>
+                <li><a href="index.html#contact">Контакты</a></li>
+                 <li><a href="index.html">Главная</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-contact">
+            <a href="https://t.me/hothair_salon" class="social-btn telegram" target="_blank" aria-label="Telegram">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+            <a href="https://wa.me/79991234567" class="social-btn whatsapp" target="_blank" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="before-after-gallery">
+            <div class="container">
+                <h2>Галерея <span class="highlight">До/После</span></h2>
+                <p style="text-align:center; margin-bottom: 40px; color: var(--text-dark);">Посмотрите на впечатляющие преображения наших клиентов!</p>
+                
+                <div class="before-after-grid">
+                    <!-- Пример 1 -->
+                    <div class="ba-item comparison-slider-container">
+                         <div class="comparison-slider">
+                            <div class="img-comp-img">
+                                <img src="images/ba-1-before.jpg" alt="До 1">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="images/ba-1-after.jpg" alt="После 1">
+                            </div>
+                        </div>
+                        <div class="ba-caption">Стрижка и окрашивание</div>
+                    </div>
+
+                    <!-- Пример 2 -->
+                     <div class="ba-item comparison-slider-container">
+                        <div class="comparison-slider">
+                            <div class="img-comp-img">
+                                <img src="images/ba-2-before.jpg" alt="До 2">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                               <img src="images/ba-2-after.jpg" alt="После 2">
+                            </div>
+                        </div>
+                        <div class="ba-caption">Кератиновое выпрямление</div>
+                    </div>
+
+                    <!-- Пример 3 -->
+                    <div class="ba-item comparison-slider-container">
+                        <div class="comparison-slider">
+                            <div class="img-comp-img">
+                                <img src="images/ba-3-before.jpg" alt="До 3">
+                            </div>
+                            <div class="img-comp-img img-comp-overlay">
+                                <img src="images/ba-3-after.jpg" alt="После 3">
+                            </div>
+                        </div>
+                        <div class="ba-caption">Сложное окрашивание</div>
+                    </div>
+                    
+                     <!-- Добавьте больше примеров здесь -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                     <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" width="150">
+                        <defs>
+                            <linearGradient id="footerLogoGradientBa" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--accent-color)" />
+                                <stop offset="100%" stop-color="var(--secondary-color)" />
+                            </linearGradient>
+                        </defs>
+                        <text x="20" y="60" class="logo-text">Hot</text>
+                        <text x="80" y="60" class="logo-text highlight">HAIR</text>
+                        <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#footerLogoGradientBa)" stroke-width="3" fill="none" />
+                        <circle class="logo-accent" cx="30" cy="30" r="5" />
+                        <circle class="logo-accent" cx="90" cy="30" r="5" />
+                    </svg>
+                    <p>Ваш стиль - наша страсть</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="index.html#services">Услуги</a></li>
+                        <li><a href="index.html#about">О нас</a></li>
+                        <li><a href="index.html#gallery">Галерея</a></li>
+                        <li><a href="before-after.html">До/После</a></li>
+                        <li><a href="index.html#contact">Контакты</a></li>
+                        <li><a href="index.html">Главная</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Instagram">📸</a>
+                        <a href="#" class="social-icon" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-icon" aria-label="TikTok">📱</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HotHAIR. Все права защищены. <a href="admin.html">Админ</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    // Скрипт для слайдера "До/После"
+    function initComparisons() {
+      var x, i;
+      x = document.getElementsByClassName("comparison-slider");
+      for (i = 0; i < x.length; i++) {
+        compareImages(x[i]);
+      }
+      function compareImages(img) {
+        var slider, img, clicked = 0, w, h;
+        w = img.offsetWidth;
+        h = img.offsetHeight;
+        img.style.height = h + "px"; // Устанавливаем высоту контейнера
+
+        var overlayImg = img.getElementsByClassName("img-comp-overlay")[0];
+        overlayImg.style.width = (w / 2) + "px";
+        overlayImg.style.height = h + "px"; // Устанавливаем высоту оверлея
+        overlayImg.style.objectFit = "cover";
+
+        var beforeImg = img.getElementsByTagName("img")[0];
+         beforeImg.style.height = h + "px"; 
+         beforeImg.style.objectFit = "cover";
+
+        var afterImg = overlayImg.getElementsByTagName("img")[0];
+        afterImg.style.height = h + "px"; 
+        afterImg.style.objectFit = "cover";
+
+
+        slider = document.createElement("DIV");
+        slider.setAttribute("class", "img-comp-slider");
+        slider.innerHTML = "&#x2194;";
+        img.appendChild(slider);
+        slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+        slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+        
+        slider.addEventListener("mousedown", slideReady);
+        window.addEventListener("mouseup", slideFinish);
+        slider.addEventListener("touchstart", slideReady, {passive: true});
+        window.addEventListener("touchend", slideFinish, {passive: true});
+
+        function slideReady(e) {
+          e.preventDefault();
+          clicked = 1;
+          window.addEventListener("mousemove", slideMove);
+          window.addEventListener("touchmove", slideMove, {passive: false});
+        }
+        function slideFinish() {
+          clicked = 0;
+          window.removeEventListener("mousemove", slideMove);
+          window.removeEventListener("touchmove", slideMove);
+        }
+        function slideMove(e) {
+          var pos;
+          if (clicked == 0) return false;
+          pos = getCursorPos(e)
+          if (pos < 0) pos = 0;
+          if (pos > w) pos = w;
+          slide(pos);
+        }
+        function getCursorPos(e) {
+          var a, x = 0;
+          e = (e.changedTouches) ? e.changedTouches[0] : e;
+          a = img.getBoundingClientRect();
+          x = e.pageX - a.left;
+          x = x - window.pageXOffset;
+          return x;
+        }
+        function slide(x) {
+          overlayImg.style.width = x + "px";
+          slider.style.left = overlayImg.offsetWidth - (slider.offsetWidth / 2) + "px";
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initComparisons();
+        // Обновляем логотип и навигацию, если они есть на этой странице
+        if (typeof animateLogo === 'function') animateLogo();
+        if (typeof setupSmoothScroll === 'function') {
+            // Адаптируем setupSmoothScroll для работы с index.html#hash ссылками
+            const navLinks = document.querySelectorAll('nav a, .footer-links a, a.btn');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('index.html#')) {
+                        // Просто переходим, т.к. это другая страница
+                    } else if (href.startsWith('#')) {
+                         e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const siteHeader = document.getElementById('siteHeader');
+
+        if(mobileMenuToggle && mainNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                siteHeader.classList.toggle('menu-open');
+                mobileMenuToggle.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuToggle.querySelector('i').classList.toggle('fa-times');
+            });
+        }
+         // Компактная шапка при скролле
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                siteHeader.classList.add('compact');
+            } else {
+                siteHeader.classList.remove('compact');
+            }
+        });
+    });
+    </script>
+</body>
+</html> 
