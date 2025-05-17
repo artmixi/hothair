@@ -2,14 +2,18 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HotHAIR - Салон красоты</title>
+    <meta name="description" content="HotHAIR - стильный салон красоты. Профессиональные стрижки, окрашивание, уход за волосами.">
+    <meta name="theme-color" content="#121212">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC+UlEQVRYR8WWTWhUVxTHf+fNTDKTmYkkGj/q1FhXIkKh0GqhCxetdCOCQsBSXLjQTe1GcOHCQnEnaBeK4EIXUkQQpJvSlRsVpFAIFoQ2BqMZk/kYM5N5970+ZswY05nMS8xcuJx3luf8z//87rn3PsUKl9knTRQInweHGpDfwBwDuQDOT5Xr6RvAtTrWjYFr0dVeBBnBMN54k/kUPG9qC/3DOi/j508KsE96sQxg5RGoPaBfHJdWHgVg/jQpXS2l2C68izcxyh5MNTIO3LWY3n7h20lgvLQ+KUDD+BYbGWrm1f8OROuSEr+YV7L15aAJn+5w1J5gU5oDmSmM1Ek8uZn8Qrc7OEDWyfX3Cf9MBdDjrKs3EFkOUMnLRrYL1vhsbyuNM1h2H/8XAMf7pJU/KQPjZOsNRJYDlINPrKyJuZZDJ4CQJc4+nptJzXMALw7HBiiZmeVuP/qwwdQ21QFQDT4OaIPcWvUAHlZHbQNIO/h4gI2+mfWrG2AlDLYNoJmZlbXbzSAVCYA5Rr3cCLpQEYC/qZM7wQgFAxE9dqKOJ+ERNtXcXnwOxAGPW9cOsUXt5sGr82V1f8w2qUn+YVctvPJm+fbmKR6Gw2QDFQA4P9WuZ6JvfrcAcgsjB9nX0M73v/eXhxiBk5E/OKrO4/lTfH3jZPTZTidHftldPHnlBOfDb2h2IoBQvgd3Z+l5Ay03P+Vs5Eq0/kHLITL2NN/dPfvOZvTk8Ycu/c2lYoZ9jQMcvX6Cs3KN490nOXzlOFPBDDvXfMSJgT6GZ+4x7E9GexQJgGb02LMTQXEKIQvcN3/5E4z5j2IZr6rKk5ZDYTBLz42vGOUBzW6Gkdn73J7/N5ovEgCn+5tFAYLM1+hynlPvDqKLGX5vXkdMmrGwGwkfK+9HMx6yCwDlJZZmCFaVFcWfIoqPdvDWgCzI+8MYeQy8jGY9g5V3lbaKecsFQw/WjfwJjCx5GU2DPV6xWxLzRE2UfQlFq/Z/2lCL8YNqjaMAAAAASUVORK5CYII=">
 </head>
 <body>
-    <header>
+    <header id="siteHeader">
         <div class="logo-container">
             <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -25,7 +29,12 @@
                 <circle class="logo-accent" cx="90" cy="30" r="5" />
             </svg>
         </div>
-        <nav>
+        
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="mainNav">
             <ul>
                 <li><a href="#services">Услуги</a></li>
                 <li><a href="#about">О нас</a></li>
@@ -33,25 +42,27 @@
                 <li><a href="#contact">Контакты</a></li>
             </ul>
         </nav>
+        
         <div class="header-contact">
-            <a href="https://t.me/hothair_salon" class="social-btn telegram" target="_blank">
+            <a href="https://t.me/hothair_salon" class="social-btn telegram" target="_blank" aria-label="Telegram">
                 <i class="fab fa-telegram"></i>
                 <span>Telegram</span>
             </a>
-            <a href="https://wa.me/79991234567" class="social-btn whatsapp" target="_blank">
+            <a href="https://wa.me/79991234567" class="social-btn whatsapp" target="_blank" aria-label="WhatsApp">
                 <i class="fab fa-whatsapp"></i>
                 <span>WhatsApp</span>
             </a>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Добро пожаловать в <span class="highlight">HotHAIR</span></h1>
-            <p>Ваш стиль - наша страсть</p>
-            <a href="#contact" class="btn glow">Записаться сейчас</a>
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Добро пожаловать в <span class="highlight">HotHAIR</span></h1>
+                <p>Ваш стиль - наша страсть</p>
+                <a href="#contact" class="btn glow">Записаться сейчас</a>
+            </div>
+        </section>
 
     <section id="services" class="services">
         <div class="container">
@@ -151,14 +162,14 @@
                         <div class="contact-icon">📞</div>
                         <div class="contact-text">
                             <h3>Телефон</h3>
-                            <p>+7 (999) 123-45-67</p>
+                            <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📧</div>
                         <div class="contact-text">
                             <h3>Email</h3>
-                            <p>info@hothair.ru</p>
+                            <p><a href="mailto:info@hothair.ru">info@hothair.ru</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -186,13 +197,13 @@
                 <div class="contact-form">
                     <form id="appointment-form">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                            <input type="text" id="name" name="name" placeholder="Ваше имя" required autocomplete="name">
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Ваш телефон" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Ваш телефон" required pattern="[0-9+\(\)\- ]{10,20}" autocomplete="tel">
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Ваш email">
+                            <input type="email" id="email" name="email" placeholder="Ваш email" autocomplete="email">
                         </div>
                         <div class="form-group">
                             <select id="service" name="service" required>
@@ -204,10 +215,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="date" id="date" name="date" required>
+                            <input type="date" id="date" name="date" required min="">
                         </div>
                         <div class="form-group">
-                            <input type="time" id="time" name="time" required>
+                            <input type="time" id="time" name="time" required min="10:00" max="19:00">
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Дополнительная информация"></textarea>
@@ -218,6 +229,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer>
         <div class="container">
@@ -250,14 +262,14 @@
                 <div class="footer-social">
                     <h3>Мы в соцсетях</h3>
                     <div class="social-icons">
-                        <a href="#" class="social-icon">📸</a>
-                        <a href="#" class="social-icon">👤</a>
-                        <a href="#" class="social-icon">📱</a>
+                        <a href="#" class="social-icon" aria-label="Instagram">📸</a>
+                        <a href="#" class="social-icon" aria-label="Facebook">👤</a>
+                        <a href="#" class="social-icon" aria-label="TikTok">📱</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 HotHAIR. Все права защищены.</p>
+                <p>&copy; 2023 HotHAIR. Все права защищены. <a href="admin.html">Админ</a></p>
             </div>
         </div>
     </footer>
