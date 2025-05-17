@@ -1,0 +1,229 @@
+/* Стили для панели администратора */
+.admin-panel {
+    padding-top: 120px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+}
+
+.admin-section {
+    margin-bottom: 60px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
+    padding: 30px;
+}
+
+/* Стили для формы загрузки */
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input[type="file"] {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    color: var(--text-color);
+    font-family: var(--font-main);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Стили для предпросмотра изображения */
+.preview-container {
+    margin: 20px 0;
+}
+
+.image-preview {
+    width: 100%;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.no-preview {
+    color: var(--text-dark);
+    text-align: center;
+    padding: 20px;
+}
+
+/* Стили для редактора изображений */
+.image-editor {
+    margin-top: 20px;
+}
+
+.editor-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.editor-btn {
+    flex: 1;
+    min-width: 120px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+}
+
+/* Стили для управления галереей */
+.gallery-manager {
+    margin-top: 20px;
+}
+
+.filter-controls {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-controls label {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.filter-controls select {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    min-width: 200px;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.image-item {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-item:hover img {
+    transform: scale(1.05);
+}
+
+.image-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-item:hover .image-actions {
+    opacity: 1;
+}
+
+.image-action {
+    color: var(--text-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.image-action:hover {
+    color: var(--accent-color);
+}
+
+.image-action.delete:hover {
+    color: #ff4d4d;
+}
+
+.no-images {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .editor-controls {
+        flex-direction: column;
+    }
+    
+    .editor-btn {
+        width: 100%;
+    }
+    
+    .images-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}

@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Добавляем эффекты при наведении для кнопок
     setupHoverEffects();
+    
+    // Настройка плавного исчезновения шапки при прокрутке
+    setupHeaderFade();
 });
 
 // Анимация логотипа
@@ -253,6 +256,40 @@ function setupHoverEffects() {
     });
 }
 
+// Настройка плавного исчезновения шапки при прокрутке
+function setupHeaderFade() {
+    const header = document.getElementById('siteHeader');
+    let lastScrollTop = 0;
+    let ticking = false;
+    
+    // Начальное состояние шапки
+    header.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                // Если прокрутка больше 100px и направление вниз
+                if (scrollTop > 100 && scrollTop > lastScrollTop) {
+                    // Плавно скрываем шапку
+                    header.style.opacity = '0';
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    // Плавно показываем шапку
+                    header.style.opacity = '1';
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    });
+}
+
 // Добавляем стили для анимации при прокрутке
 document.addEventListener('DOMContentLoaded', function() {
     const style = document.createElement('style');
@@ -284,4 +321,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-}); 
+});
