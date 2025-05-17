@@ -1,273 +1,267 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HotHair — Парикмахерская</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: #fff;
-      color: #333;
-      scroll-behavior: smooth;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    header {
-      background: #000;
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #d63384;
-    }
-
-    nav a {
-      margin-left: 20px;
-      color: white;
-      font-weight: 500;
-    }
-
-    section {
-      padding: 80px 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 120px 20px 80px;
-      background: url('https://picsum.photos/id/1074/1920/600 ') center/cover no-repeat;
-      color: white;
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #d63384;
-      color: white;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background: #c02774;
-    }
-
-    .services,
-    .team,
-    .gallery,
-    .contacts {
-      background: #f9f9f9;
-      margin-top: 40px;
-      border-radius: 12px;
-      padding: 40px;
-    }
-
-    .services h2,
-    .team h2,
-    .gallery h2,
-    .contacts h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 32px;
-    }
-
-    .service-list,
-    .team-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .service-item,
-    .team-item {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-
-    .service-item h3,
-    .team-item h3 {
-      margin-bottom: 10px;
-      color: #d63384;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    form button {
-      width: 100%;
-      padding: 14px;
-      background: #d63384;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      background: #000;
-      color: white;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav a {
-        margin: 10px 0 0;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HotHAIR - Салон красоты</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <header>
+        <div class="logo-container">
+            <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--accent-color)" />
+                        <stop offset="100%" stop-color="var(--secondary-color)" />
+                    </linearGradient>
+                </defs>
+                <text x="20" y="60" class="logo-text">Hot</text>
+                <text x="80" y="60" class="logo-text highlight">HAIR</text>
+                <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#logoGradient)" stroke-width="3" fill="none" />
+                <circle class="logo-accent" cx="30" cy="30" r="5" />
+                <circle class="logo-accent" cx="90" cy="30" r="5" />
+            </svg>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header-contact">
+            <a href="https://t.me/hothair_salon" class="social-btn telegram" target="_blank">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+            <a href="https://wa.me/79991234567" class="social-btn whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+    </header>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">HotHair</div>
-    <nav>
-      <a href="#services">Услуги</a>
-      <a href="#team">Мастера</a>
-      <a href="#gallery">Галерея</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
-  </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Добро пожаловать в <span class="highlight">HotHAIR</span></h1>
+            <p>Ваш стиль - наша страсть</p>
+            <a href="#contact" class="btn glow">Записаться сейчас</a>
+        </div>
+    </section>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>Твой идеальный образ начинается здесь</h1>
-    <p>Профессиональные мастера, модные стрижки, стильные укладки и окрашивание.</p>
-    <a href="#contacts" class="btn">Записаться онлайн</a>
-  </section>
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Наши <span class="highlight">Услуги</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✂️</div>
+                    <h3>Стрижка</h3>
+                    <p>Современные и классические стрижки для создания вашего идеального образа</p>
+                    <p class="price">от 1000₽</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Окрашивание</h3>
+                    <p>Креативное окрашивание с использованием премиальных красителей</p>
+                    <p class="price">от 2500₽</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💇</div>
+                    <h3>Укладка</h3>
+                    <p>Профессиональная укладка для любого события</p>
+                    <p class="price">от 1500₽</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Уход за волосами</h3>
+                    <p>Восстанавливающие процедуры для здоровья ваших волос</p>
+                    <p class="price">от 2000₽</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Services -->
-  <section id="services" class="services">
-    <h2>Наши услуги</h2>
-    <div class="service-list">
-      <div class="service-item">
-        <h3>Стрижка женская</h3>
-        <p>от 1500 ₽</p>
-      </div>
-      <div class="service-item">
-        <h3>Окрашивание</h3>
-        <p>от 3000 ₽</p>
-      </div>
-      <div class="service-item">
-        <h3>Укладка</h3>
-        <p>от 800 ₽</p>
-      </div>
-      <div class="service-item">
-        <h3>Наращивание волос</h3>
-        <p>от 5000 ₽</p>
-      </div>
-    </div>
-  </section>
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О <span class="highlight">Нас</span></h2>
+                    <p>Салон красоты HotHAIR - это место, где ваши волосы преображаются и становятся настоящим произведением искусства.</p>
+                    <p>Наш мастер имеет более 10 лет опыта в индустрии красоты и постоянно совершенствует свои навыки, чтобы предложить вам самые современные и эффективные техники стрижки и окрашивания.</p>
+                    <p>Мы используем только профессиональную косметику премиум-класса, чтобы обеспечить наилучший результат и заботу о ваших волосах.</p>
+                </div>
+                <div class="about-image">
+                    <div class="stylist-card">
+                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGFpcmRyZXNzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Стилист">
+                        <h3>Анна Стайлер</h3>
+                        <p>Ведущий стилист</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">📸</a>
+                            <a href="#" class="social-icon">👤</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Team -->
-  <section id="team" class="team">
-    <h2>Наши мастера</h2>
-    <div class="team-list">
-      <div class="team-item">
-        <h3>Анна Иванова</h3>
-        <p>Стаж 10 лет. Специализация: сложное окрашивание</p>
-      </div>
-      <div class="team-item">
-        <h3>Екатерина Петрова</h3>
-        <p>Стаж 8 лет. Эксперт по стрижкам и укладкам</p>
-      </div>
-      <div class="team-item">
-        <h3>Светлана Смирнова</h3>
-        <p>Стаж 5 лет. Любительница экспериментов с формой</p>
-      </div>
-    </div>
-  </section>
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Наши <span class="highlight">Работы</span></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGFpcmN1dHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aGFpcmN1dHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGFpcmRyZXNzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565452344518-47faca79dc69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhhaXJjdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGhhaXJjdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGhhaXJjdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Работа 6">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Gallery -->
-  <section id="gallery" class="gallery">
-    <h2>Галерея работ</h2>
-    <div class="gallery-grid">
-      <img src="https://picsum.photos/id/1015/600/400 " alt="Фото работы 1">
-      <img src="https://picsum.photos/id/1016/600/400 " alt="Фото работы 2">
-      <img src="https://picsum.photos/id/1018/600/400 " alt="Фото работы 3">
-    </div>
-  </section>
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Связаться с <span class="highlight">Нами</span></h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h3>Адрес</h3>
+                            <p>ул. Стильная, д. 42, Москва</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h3>Телефон</h3>
+                            <p>+7 (999) 123-45-67</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>info@hothair.ru</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-text">
+                            <h3>Часы работы</h3>
+                            <p>Пн-Пт: 10:00 - 20:00</p>
+                            <p>Сб-Вс: 11:00 - 18:00</p>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <h3>Свяжитесь с нами в мессенджерах</h3>
+                        <div class="social-buttons">
+                            <a href="https://t.me/hothair_salon" class="social-btn telegram" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="https://wa.me/79991234567" class="social-btn whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="appointment-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Ваш телефон" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Ваш email">
+                        </div>
+                        <div class="form-group">
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Выберите услугу</option>
+                                <option value="haircut">Стрижка</option>
+                                <option value="coloring">Окрашивание</option>
+                                <option value="styling">Укладка</option>
+                                <option value="treatment">Уход за волосами</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Дополнительная информация"></textarea>
+                        </div>
+                        <button type="submit" class="btn glow">Записаться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Contacts -->
-  <section id="contacts" class="contacts">
-    <h2>Записаться онлайн</h2>
-    <form action="mailto:admin@hothair.ru" method="post" enctype="text/plain">
-      <input type="text" name="name" placeholder="Ваше имя" required />
-      <input type="tel" name="phone" placeholder="Номер телефона" required />
-      <input type="email" name="email" placeholder="Email" />
-      <textarea name="message" rows="4" placeholder="Комментарий"></textarea>
-      <button type="submit">Отправить заявку</button>
-    </form>
-  </section>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" width="150">
+                        <defs>
+                            <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--accent-color)" />
+                                <stop offset="100%" stop-color="var(--secondary-color)" />
+                            </linearGradient>
+                        </defs>
+                        <text x="20" y="60" class="logo-text">Hot</text>
+                        <text x="80" y="60" class="logo-text highlight">HAIR</text>
+                        <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#footerLogoGradient)" stroke-width="3" fill="none" />
+                        <circle class="logo-accent" cx="30" cy="30" r="5" />
+                        <circle class="logo-accent" cx="90" cy="30" r="5" />
+                    </svg>
+                    <p>Ваш стиль - наша страсть</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📸</a>
+                        <a href="#" class="social-icon">👤</a>
+                        <a href="#" class="social-icon">📱</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 HotHAIR. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 HotHair. Все права защищены.
-  </footer>
-
+    <script src="script.js"></script>
 </body>
-</html>
+</html> 
