@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Анимация карточек услуг при прокрутке
     animateOnScroll('.service-card');
     
-    // Анимация галереи при прокрутке
-    animateOnScroll('.gallery-item');
-    
     // Обработка формы
     setupForm();
     
@@ -23,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Настройка плавного исчезновения шапки при прокрутке
     setupHeaderFade();
+    
+    // Регистрация сервис-воркера для оффлайн-режима
+    registerServiceWorker();
 });
 
 // Анимация логотипа
@@ -294,13 +294,13 @@ function setupHeaderFade() {
 document.addEventListener('DOMContentLoaded', function() {
     const style = document.createElement('style');
     style.textContent = `
-        .service-card, .gallery-item {
+        .service-card {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
-        .service-card.animate, .gallery-item.animate {
+        .service-card.animate {
             opacity: 1;
             transform: translateY(0);
         }
@@ -322,3 +322,18 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// Регистрация сервис-воркера для оффлайн-режима
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('ServiceWorker зарегистрирован успешно:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Ошибка регистрации ServiceWorker:', error);
+                });
+        });
+    }
+}

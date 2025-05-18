@@ -6,27 +6,212 @@
     <title>HotHAIR - Салон красоты</title>
     <meta name="description" content="HotHAIR - стильный салон красоты. Профессиональные стрижки, окрашивание, уход за волосами.">
     <meta name="theme-color" content="#121212">
+    <!-- Мета-теги для мобильных устройств -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script">
+    <!-- Добавление кэширования -->
+    <meta http-equiv="Cache-Control" content="max-age=86400">
+    <!-- Стили -->
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <!-- Иконка сайта -->
     <link rel="icon" type="image/png" href="images/favicon.png">
+    
+    <style>
+        /* Стили для нового анимированного логотипа */
+        .logo-container {
+            position: relative;
+            width: 180px;
+            height: 60px;
+            overflow: visible;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        #logo {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .logo-text tspan {
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 2px rgba(255,255,255,0.5); }
+            100% { text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 15px var(--accent-color); }
+        }
+        
+        .logo-bg {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawPath 5s ease-in-out forwards, flow 8s 5s infinite ease-in-out;
+        }
+        
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes flow {
+            0%, 100% { stroke-dashoffset: 0; stroke-width: 8; }
+            50% { stroke-dashoffset: 50; stroke-width: 10; }
+        }
+        
+        .scissors-icon {
+            opacity: 0;
+            animation: fadeIn 1s 3s forwards, snip 5s 4s infinite ease-in-out;
+            transform-origin: 10px 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes snip {
+            0%, 100% { transform: translate(190px, 40px) rotate(-15deg); }
+            50% { transform: translate(190px, 40px) rotate(15deg); }
+        }
+        
+        .pulse-animation {
+            opacity: 0;
+            animation: 
+                appearWithDelay 0.5s forwards,
+                pulse 3s infinite alternate ease-in-out;
+        }
+        
+        .pulse-animation:nth-child(1) {
+            animation-delay: 2s, 2.5s;
+        }
+        
+        .pulse-animation:nth-child(2) {
+            animation-delay: 2.5s, 3s;
+        }
+        
+        .pulse-animation:nth-child(3) {
+            animation-delay: 3s, 3.5s;
+        }
+        
+        @keyframes appearWithDelay {
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { r: 3; opacity: 0.6; filter: blur(0); }
+            100% { r: 6; opacity: 1; filter: blur(1px); }
+        }
+        
+        /* Стили для специальной кнопки До/После */
+        .special-btn {
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: var(--dark-bg);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+        }
+        
+        .special-btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .special-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(147, 112, 219, 0.6);
+        }
+        
+        .special-btn:hover i {
+            animation: spin 1s ease;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                margin: 8px 0;
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .logo-container {
+                width: 150px;
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header id="siteHeader">
         <div class="logo-container">
-            <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <svg id="logo" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="var(--accent-color)" />
+                        <stop offset="50%" stop-color="#ff9de2" />
                         <stop offset="100%" stop-color="var(--secondary-color)" />
                     </linearGradient>
+                    
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    
+                    <clipPath id="scissorsClip">
+                        <path d="M40,30 L45,40 L35,45 Z" />
+                    </clipPath>
                 </defs>
-                <text x="20" y="60" class="logo-text">Hot</text>
-                <text x="80" y="60" class="logo-text highlight">HAIR</text>
-                <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#logoGradient)" stroke-width="3" fill="none" />
-                <circle class="logo-accent" cx="30" cy="30" r="5" />
-                <circle class="logo-accent" cx="90" cy="30" r="5" />
+                
+                <!-- Фоновый элемент -->
+                <path class="logo-bg" d="M20,60 C40,20 80,90 120,40 S160,70 200,50" 
+                      stroke="url(#logoGradient)" stroke-width="8" fill="none" 
+                      stroke-linecap="round" filter="url(#glow)" opacity="0.6" />
+                
+                <!-- Основной текст -->
+                <text x="30" y="65" class="logo-text" font-family="'Raleway', sans-serif" font-weight="700" font-size="32">
+                    <tspan fill="#ffffff" filter="url(#glow)">Hot</tspan>
+                    <tspan x="95" fill="var(--accent-color)" class="highlight">HAIR</tspan>
+                </text>
+                
+                <!-- Декоративные элементы -->
+                <g class="scissors-icon" transform="translate(190, 40) rotate(-15)" filter="url(#glow)">
+                    <path d="M0,0 C3,-10 15,-8 10,0 C15,8 3,10 0,0 Z" fill="var(--secondary-color)" />
+                    <path d="M10,0 L25,15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                    <path d="M10,0 L25,-15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                </g>
+                
+                <!-- Анимированные элементы -->
+                <circle class="logo-accent pulse-animation" cx="20" cy="40" r="4" fill="var(--accent-color)" />
+                <circle class="logo-accent pulse-animation" cx="200" cy="60" r="4" fill="var(--secondary-color)" />
+                <circle class="logo-accent pulse-animation" cx="120" cy="30" r="3" fill="#ff9de2" />
             </svg>
         </div>
         
@@ -36,9 +221,9 @@
         
         <nav id="mainNav">
             <ul>
+                <li><a href="#">Главная</a></li>
                 <li><a href="#services">Услуги</a></li>
                 <li><a href="#about">О нас</a></li>
-                <li><a href="#gallery">Галерея</a></li>
                 <li><a href="before-after.html">До/После</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
@@ -62,94 +247,275 @@
 
     <main>
         <section class="hero">
+            <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1>Добро пожаловать в <span class="highlight">HotHAIR</span></h1>
-                <p>Ваш стиль - наша страсть</p>
-                <a href="#contact" class="btn glow">Записаться сейчас</a>
+                <div class="hero-text-container">
+                    <h1 class="hero-title">Добро пожаловать в <span class="highlight animated-text">HotHAIR</span></h1>
+                    <p class="hero-subtitle">Создаем уникальные образы для уникальных людей</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn glow primary-btn">Наши услуги</a>
+                        <a href="#contact" class="btn outline-btn">Записаться</a>
+                        <a href="before-after.html" class="btn special-btn"><i class="fas fa-exchange-alt"></i> До/После</a>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <div class="floating-card">
+                        <div class="floating-card-inner">
+                            <div class="floating-card-front">
+                                <img src="images/hero-style.jpg" alt="Стильный образ" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Прокрутите вниз</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Наши <span class="highlight">Услуги</span></h2>
-            <div class="services-grid">
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Что мы предлагаем</span>
+                    <h2>Наши <span class="highlight">Услуги</span></h2>
+                    <div class="section-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-icon"><i class="fas fa-cut"></i></span>
+                        <span class="divider-line"></span>
+                    </div>
+                    <p class="section-description">Мы предлагаем широкий спектр услуг для создания вашего идеального образа</p>
+                </div>
+                <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">✂️</div>
-                    <h3>Стрижка</h3>
-                    <p>Современные и классические стрижки для создания вашего идеального образа</p>
-                    <p class="price">от 1000₽</p>
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Стрижка</h3>
+                        <p>Современные и классические стрижки для создания вашего идеального образа</p>
+                        <div class="service-footer">
+                            <p class="price">от 1000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>Окрашивание</h3>
-                    <p>Креативное окрашивание с использованием премиальных красителей</p>
-                    <p class="price">от 2500₽</p>
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Окрашивание</h3>
+                        <p>Современные техники окрашивания и тонирования для всех типов волос</p>
+                        <div class="service-footer">
+                            <p class="price">от 3000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">💇</div>
-                    <h3>Укладка</h3>
-                    <p>Профессиональная укладка для любого события</p>
-                    <p class="price">от 1500₽</p>
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Укладка</h3>
+                        <p>Стильные укладки для любого случая - от повседневных до торжественных</p>
+                        <div class="service-footer">
+                            <p class="price">от 1500₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">✨</div>
-                    <h3>Уход за волосами</h3>
-                    <p>Восстанавливающие процедуры для здоровья ваших волос</p>
-                    <p class="price">от 2000₽</p>
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Уход за волосами</h3>
+                        <p>Восстанавливающие процедуры для здоровья ваших волос</p>
+                        <div class="service-footer">
+                            <p class="price">от 2000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="services-cta">
+                    <a href="#contact" class="btn glow">Записаться на услугу</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Познакомьтесь с нами</span>
                     <h2>О <span class="highlight">Нас</span></h2>
-                    <p>Салон красоты HotHAIR - это место, где ваши волосы преображаются и становятся настоящим произведением искусства.</p>
+                    <div class="section-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-icon"><i class="fas fa-heart"></i></span>
+                        <span class="divider-line"></span>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3 class="about-subtitle">Мы создаем не просто прически, а уникальные образы</h3>
+                        <p>Наш салон красоты - это место, где каждый клиент получает индивидуальный подход и высококачественные услуги.</p>
+                        <div class="about-features">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                                <div class="feature-text">
+                                    <h4>Премиальные материалы</h4>
+                                    <p>Мы используем только профессиональную косметику и современное оборудование.</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-award"></i></div>
+                                <div class="feature-text">
+                                    <h4>Опытные мастера</h4>
+                                    <p>Наши стилисты постоянно повышают квалификацию и следят за трендами.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <p>Наш мастер имеет более 10 лет опыта в индустрии красоты и постоянно совершенствует свои навыки, чтобы предложить вам самые современные и эффективные техники стрижки и окрашивания.</p>
                     <p>Мы используем только профессиональную косметику премиум-класса, чтобы обеспечить наилучший результат и заботу о ваших волосах.</p>
                 </div>
                 <div class="about-image">
                     <div class="stylist-card">
-                        <img src="images/stylist.jpg" alt="Стилист">
-                        <h3>Анна Стайлер</h3>
-                        <p>Ведущий стилист</p>
+                        <div class="stylist-card-front">
+                            <img src="images/stylist.jpg" alt="Стилист" loading="lazy">
+                            <div class="stylist-overlay">
+                                <h3>Анна Стайлер</h3>
+                                <p>Главный стилист</p>
+                                <div class="experience-badge">10+ лет опыта</div>
+                            </div>
+                        </div>
                         <div class="social-icons">
-                            <a href="#" class="social-icon">📸</a>
-                            <a href="#" class="social-icon">👤</a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div class="about-cta">
+                        <a href="#contact" class="btn outline-btn">Записаться к мастеру</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Что мы предлагаем</span>
+                <h2>Наши <span class="highlight">Услуги</span></h2>
+                <div class="section-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-icon"><i class="fas fa-cut"></i></span>
+                    <span class="divider-line"></span>
+                </div>
+                <p class="section-description">Мы предлагаем широкий спектр услуг для создания вашего идеального образа</p>
+            </div>
+            <div class="services-grid">
+                <!-- Услуги с фотографиями -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-1.jpg" alt="Стрижка" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Стрижки</h3>
+                        <p>Профессиональные стрижки для мужчин и женщин любой сложности</p>
+                        <div class="service-footer">
+                            <p class="price">от 1000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-2.jpg" alt="Окрашивание" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Окрашивание</h3>
+                        <p>Современные техники окрашивания: омбре, балаяж, шатуш</p>
+                        <div class="service-footer">
+                            <p class="price">от 3000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-3.jpg" alt="Укладка" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Укладки</h3>
+                        <p>Повседневные и праздничные укладки любой сложности</p>
+                        <div class="service-footer">
+                            <p class="price">от 1500₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-4.jpg" alt="Уход за волосами" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Уход за волосами</h3>
+                        <p>Профессиональные процедуры для восстановления и лечения волос</p>
+                        <div class="service-footer">
+                            <p class="price">от 2000₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-5.jpg" alt="Кератиновое выпрямление" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Кератиновое выпрямление</h3>
+                        <p>Долговременное выпрямление волос с эффектом до 6 месяцев</p>
+                        <div class="service-footer">
+                            <p class="price">от 4500₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/gallery-6.jpg" alt="Свадебные прически" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Свадебные прически</h3>
+                        <p>Создание неповторимого образа для вашего особенного дня</p>
+                        <div class="service-footer">
+                            <p class="price">от 3500₽</p>
+                            <a href="#contact" class="service-btn"><i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2>Наши <span class="highlight">Работы</span></h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/gallery-1.jpg" alt="Работа 1">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-2.jpg" alt="Работа 2">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-3.jpg" alt="Работа 3">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-4.jpg" alt="Работа 4">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-5.jpg" alt="Работа 5">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-6.jpg" alt="Работа 6">
-                </div>
+            <div class="services-cta">
+                <a href="before-after.html" class="btn glow">Посмотреть До/После</a>
             </div>
         </div>
     </section>
+
+    <!-- Секция "Наши работы" удалена для уменьшения нагруженности сайта -->
 
     <section id="contact" class="contact">
         <div class="container">
@@ -240,27 +606,51 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" width="150">
+                    <svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" width="150">
                         <defs>
-                            <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="var(--accent-color)" />
+                                <stop offset="50%" stop-color="#ff9de2" />
                                 <stop offset="100%" stop-color="var(--secondary-color)" />
                             </linearGradient>
+                            
+                            <filter id="footerGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="2" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
                         </defs>
-                        <text x="20" y="60" class="logo-text">Hot</text>
-                        <text x="80" y="60" class="logo-text highlight">HAIR</text>
-                        <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#footerLogoGradient)" stroke-width="3" fill="none" />
-                        <circle class="logo-accent" cx="30" cy="30" r="5" />
-                        <circle class="logo-accent" cx="90" cy="30" r="5" />
+                        
+                        <!-- Фоновый элемент -->
+                        <path class="logo-bg" d="M20,60 C40,20 80,90 120,40 S160,70 200,50" 
+                              stroke="url(#footerLogoGradient)" stroke-width="6" fill="none" 
+                              stroke-linecap="round" filter="url(#footerGlow)" opacity="0.5" />
+                        
+                        <!-- Основной текст -->
+                        <text x="30" y="65" class="logo-text" font-family="'Raleway', sans-serif" font-weight="700" font-size="28">
+                            <tspan fill="#ffffff" filter="url(#footerGlow)">Hot</tspan>
+                            <tspan x="95" fill="var(--accent-color)" class="highlight">HAIR</tspan>
+                        </text>
+                        
+                        <!-- Декоративные элементы -->
+                        <g class="scissors-icon" transform="translate(190, 40) rotate(-15)" filter="url(#footerGlow)">
+                            <path d="M0,0 C3,-10 15,-8 10,0 C15,8 3,10 0,0 Z" fill="var(--secondary-color)" />
+                            <path d="M10,0 L25,15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M10,0 L25,-15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                        </g>
+                        
+                        <!-- Анимированные элементы -->
+                        <circle class="logo-accent pulse-animation" cx="20" cy="40" r="3" fill="var(--accent-color)" />
+                        <circle class="logo-accent pulse-animation" cx="200" cy="60" r="3" fill="var(--secondary-color)" />
+                        <circle class="logo-accent pulse-animation" cx="120" cy="30" r="2" fill="#ff9de2" />
                     </svg>
                     <p>Ваш стиль - наша страсть</p>
                 </div>
                 <div class="footer-links">
                     <h3>Быстрые ссылки</h3>
                     <ul>
+                        <li><a href="#">Главная</a></li>
                         <li><a href="#services">Услуги</a></li>
                         <li><a href="#about">О нас</a></li>
-                        <li><a href="#gallery">Галерея</a></li>
                         <li><a href="before-after.html">До/После</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>

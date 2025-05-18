@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нет подключения к интернету - Hot Hair Salon</title>
+    <meta name="description" content="Стильный салон красоты Hot Hair Salon. В настоящий момент вы находитесь в оффлайн-режиме.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --accent-color: #9370DB;
+            --accent-glow: 0 0 10px #9370DB, 0 0 20px #9370DB, 0 0 30px #9370DB;
+            --secondary-color: #4ECDC4;
+            --text-color: #f0f0f0;
+            --text-dark: #aaaaaa;
+            --card-bg: rgba(15, 15, 15, 0.7);
+            --card-border: 1px solid rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --font-main: 'Arial', sans-serif;
+            --font-heading: 'Arial', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            background-image: linear-gradient(45deg, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.97));
+        }
+
+        .offline-container {
+            max-width: 600px;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: var(--card-border);
+            box-shadow: var(--card-shadow);
+            animation: pulse 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+            100% { box-shadow: var(--accent-glow); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            box-shadow: var(--accent-glow);
+            transform: translateY(-3px);
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <img src="images/favicon.png" alt="Hot Hair Salon Logo" class="logo">
+        <div class="icon">⚠️</div>
+        <h1>Нет подключения к интернету</h1>
+        <p>К сожалению, вы находитесь в оффлайн-режиме и не можете получить доступ к новому содержимому сайта.</p>
+        <p>Некоторые ранее посещенные страницы и изображения доступны в оффлайн-режиме.</p>
+        <a href="/" class="btn">Попробовать снова</a>
+    </div>
+
+    <script>
+        // Проверка подключения к интернету
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+        
+        // Обработка кнопки "Попробовать снова"
+        document.querySelector('.btn').addEventListener('click', (e) => {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                e.preventDefault();
+                alert('Вы все еще не подключены к интернету. Пожалуйста, проверьте ваше соединение и попробуйте снова.');
+            }
+        });
+    </script>
+</body>
+</html>

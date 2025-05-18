@@ -6,21 +6,196 @@
     <title>HotHAIR - Галерея До/После</title>
     <meta name="description" content="Галерея работ до и после в салоне красоты HotHAIR.">
     <meta name="theme-color" content="#121212">
+    <!-- Мета-теги для мобильных устройств -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script">
+    <!-- Добавление кэширования -->
+    <meta http-equiv="Cache-Control" content="max-age=86400">
+    <!-- Стили -->
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
-        .before-after-gallery {
-            padding: 80px 0;
-            background-color: var(--darker-bg);
+        /* Стили для нового анимированного логотипа */
+        .logo-container {
+            position: relative;
+            width: 180px;
+            height: 60px;
+            overflow: visible;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        #logo {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .logo-text tspan {
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 2px rgba(255,255,255,0.5); }
+            100% { text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 15px var(--accent-color); }
+        }
+        
+        .logo-bg {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawPath 5s ease-in-out forwards, flow 8s 5s infinite ease-in-out;
+        }
+        
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes flow {
+            0%, 100% { stroke-dashoffset: 0; stroke-width: 8; }
+            50% { stroke-dashoffset: 50; stroke-width: 10; }
+        }
+        
+        .scissors-icon {
+            opacity: 0;
+            animation: fadeIn 1s 3s forwards, snip 5s 4s infinite ease-in-out;
+            transform-origin: 10px 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes snip {
+            0%, 100% { transform: translate(190px, 40px) rotate(-15deg); }
+            50% { transform: translate(190px, 40px) rotate(15deg); }
+        }
+        
+        .pulse-animation {
+            opacity: 0;
+            animation: 
+                appearWithDelay 0.5s forwards,
+                pulse 3s infinite alternate ease-in-out;
+        }
+        
+        .pulse-animation:nth-child(1) {
+            animation-delay: 2s, 2.5s;
+        }
+        
+        .pulse-animation:nth-child(2) {
+            animation-delay: 2.5s, 3s;
+        }
+        
+        .pulse-animation:nth-child(3) {
+            animation-delay: 3s, 3.5s;
+        }
+        
+        @keyframes appearWithDelay {
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { r: 3; opacity: 0.6; filter: blur(0); }
+            100% { r: 6; opacity: 1; filter: blur(1px); }
+        }
+        
+        /* Стили для страницы До/После */
+        .before-after-gallery {
+            padding: 80px 0 100px; /* Увеличенный отступ снизу */
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Фоновые элементы */
+        .before-after-gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(147, 112, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.1) 0%, transparent 40%);
+            z-index: 0;
+        }
+        
+        /* Стили заголовка секции */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-subtitle {
+            display: inline-block;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .section-description {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+        
+        .divider-icon {
+            margin: 0 15px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        /* Сетка До/После */
         .before-after-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin-top: 40px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
         }
+        
         .ba-item {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -28,40 +203,124 @@
             box-shadow: var(--card-shadow);
             overflow: hidden;
             position: relative;
+            transition: var(--transition);
+            transform: translateY(0);
         }
+        
+        .ba-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
         .ba-item img {
             display: block;
             width: 100%;
             height: auto;
             aspect-ratio: 1 / 1;
             object-fit: cover;
+            content-visibility: auto; /* Оптимизация рендеринга */
         }
+        
         .ba-caption {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
             color: var(--text-color);
-            padding: 10px;
+            padding: 20px 15px 15px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
         .ba-label {
             position: absolute;
-            top: 10px;
-            left: 10px;
             background-color: var(--accent-color);
             color: var(--dark-bg);
-            padding: 5px 10px;
+            padding: 6px 12px;
             font-size: 0.8rem;
             font-weight: bold;
             border-radius: 4px;
             text-transform: uppercase;
+            z-index: 5;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
-         .ba-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        
+        .before-label {
+            top: 15px;
+            left: 15px;
+        }
+        
+        .after-label {
+            top: 15px;
+            right: 15px;
+            left: auto;
+            background-color: var(--secondary-color);
+        }
+        
+        /* Анимация для меток при наведении */
+        .comparison-slider:hover .ba-label {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        
+        /* Стили для кнопки возврата на главную */
+        .back-to-home {
+            position: fixed;
+            top: calc(var(--header-height) + 20px);
+            left: 20px;
+            z-index: 100;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
+        }
+        
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .back-to-home {
+                top: calc(var(--header-height) + 10px);
+                left: 10px;
+            }
+            
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        /* Оптимизация для мобильных - отключение hover-эффектов */
+        @media (hover: hover) {
+            .ba-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            }
         }
         .comparison-slider {
             width: 100%;
@@ -72,6 +331,7 @@
             border: var(--card-border);
             box-shadow: var(--card-shadow);
             cursor: ew-resize;
+            touch-action: pan-x; /* Улучшение для сенсорных устройств */
         }
         .comparison-slider img {
             display: block;
@@ -87,29 +347,56 @@
             width: auto;
             height: auto;
             overflow: hidden;
+            transition: width 0.1s ease-out;
         }
+        
         .comparison-slider .img-comp-img img {
             display: block;
-            vertical-align: middle;
+            width: auto;
+            height: auto;
         }
+        
         .comparison-slider .img-comp-slider {
             position: absolute;
             z-index: 9;
             cursor: ew-resize;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background-color: var(--accent-color);
-            opacity: 0.7;
+            opacity: 0.9;
             border-radius: 50%;
-            border: 2px solid var(--text-color);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-color);
             font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(147, 112, 219, 0.7);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
-         .comparison-slider .img-comp-slider:hover {
+        
+        .comparison-slider .img-comp-slider::before {
+            content: '\f053'; /* fa-chevron-left */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .comparison-slider .img-comp-slider::after {
+            content: '\f054'; /* fa-chevron-right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .comparison-slider .img-comp-slider:hover {
             opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(147, 112, 219, 0.9);
         }
 
     </style>
@@ -117,18 +404,46 @@
 <body>
     <header id="siteHeader">
         <div class="logo-container">
-             <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <svg id="logo" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="var(--accent-color)" />
+                        <stop offset="50%" stop-color="#ff9de2" />
                         <stop offset="100%" stop-color="var(--secondary-color)" />
                     </linearGradient>
+                    
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    
+                    <clipPath id="scissorsClip">
+                        <path d="M40,30 L45,40 L35,45 Z" />
+                    </clipPath>
                 </defs>
-                <text x="20" y="60" class="logo-text">Hot</text>
-                <text x="80" y="60" class="logo-text highlight">HAIR</text>
-                <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#logoGradient)" stroke-width="3" fill="none" />
-                <circle class="logo-accent" cx="30" cy="30" r="5" />
-                <circle class="logo-accent" cx="90" cy="30" r="5" />
+                
+                <!-- Фоновый элемент -->
+                <path class="logo-bg" d="M20,60 C40,20 80,90 120,40 S160,70 200,50" 
+                      stroke="url(#logoGradient)" stroke-width="8" fill="none" 
+                      stroke-linecap="round" filter="url(#glow)" opacity="0.6" />
+                
+                <!-- Основной текст -->
+                <text x="30" y="65" class="logo-text" font-family="'Raleway', sans-serif" font-weight="700" font-size="32">
+                    <tspan fill="#ffffff" filter="url(#glow)">Hot</tspan>
+                    <tspan x="95" fill="var(--accent-color)" class="highlight">HAIR</tspan>
+                </text>
+                
+                <!-- Декоративные элементы -->
+                <g class="scissors-icon" transform="translate(190, 40) rotate(-15)" filter="url(#glow)">
+                    <path d="M0,0 C3,-10 15,-8 10,0 C15,8 3,10 0,0 Z" fill="var(--secondary-color)" />
+                    <path d="M10,0 L25,15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                    <path d="M10,0 L25,-15" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" />
+                </g>
+                
+                <!-- Анимированные элементы -->
+                <circle class="logo-accent pulse-animation" cx="20" cy="40" r="4" fill="var(--accent-color)" />
+                <circle class="logo-accent pulse-animation" cx="200" cy="60" r="4" fill="var(--secondary-color)" />
+                <circle class="logo-accent pulse-animation" cx="120" cy="30" r="3" fill="#ff9de2" />
             </svg>
         </div>
         
@@ -160,20 +475,35 @@
     </header>
 
     <main>
+        <!-- Кнопка возврата на главную -->
+        <div class="back-to-home">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </div>
+        
         <section class="before-after-gallery">
             <div class="container">
-                <h2>Галерея <span class="highlight">До/После</span></h2>
-                <p style="text-align:center; margin-bottom: 40px; color: var(--text-dark);">Посмотрите на впечатляющие преображения наших клиентов!</p>
+                <div class="section-header">
+                    <span class="section-subtitle">Наши преображения</span>
+                    <h2>Галерея <span class="highlight">До/После</span></h2>
+                    <div class="section-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-icon"><i class="fas fa-exchange-alt"></i></span>
+                        <span class="divider-line"></span>
+                    </div>
+                    <p class="section-description">Посмотрите на впечатляющие преображения наших клиентов!</p>
+                </div>
                 
                 <div class="before-after-grid">
                     <!-- Пример 1 -->
                     <div class="ba-item comparison-slider-container">
                          <div class="comparison-slider">
                             <div class="img-comp-img">
-                                <img src="images/ba-1-before.jpg" alt="До 1">
+                                <img src="images/ba-1-before.jpg" alt="До 1" loading="lazy" width="300" height="300">
                             </div>
                             <div class="img-comp-img img-comp-overlay">
-                                <img src="images/ba-1-after.jpg" alt="После 1">
+                                <img src="images/ba-1-after.jpg" alt="После 1" loading="lazy" width="300" height="300">
                             </div>
                         </div>
                         <div class="ba-caption">Стрижка и окрашивание</div>
@@ -251,77 +581,207 @@
 
     <script src="script.js"></script>
     <script>
-    // Скрипт для слайдера "До/После"
-    function initComparisons() {
-      var x, i;
-      x = document.getElementsByClassName("comparison-slider");
-      for (i = 0; i < x.length; i++) {
-        compareImages(x[i]);
-      }
-      function compareImages(img) {
-        var slider, img, clicked = 0, w, h;
-        w = img.offsetWidth;
-        h = img.offsetHeight;
-        img.style.height = h + "px"; // Устанавливаем высоту контейнера
-
-        var overlayImg = img.getElementsByClassName("img-comp-overlay")[0];
-        overlayImg.style.width = (w / 2) + "px";
-        overlayImg.style.height = h + "px"; // Устанавливаем высоту оверлея
-        overlayImg.style.objectFit = "cover";
-
-        var beforeImg = img.getElementsByTagName("img")[0];
-         beforeImg.style.height = h + "px"; 
-         beforeImg.style.objectFit = "cover";
-
-        var afterImg = overlayImg.getElementsByTagName("img")[0];
-        afterImg.style.height = h + "px"; 
-        afterImg.style.objectFit = "cover";
-
-
-        slider = document.createElement("DIV");
-        slider.setAttribute("class", "img-comp-slider");
-        slider.innerHTML = "&#x2194;";
-        img.appendChild(slider);
-        slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
-        slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+    // Используем defer для оптимизации загрузки
+    document.addEventListener('DOMContentLoaded', function() {
+        // Инициализируем сравнение изображений с небольшой задержкой для улучшения производительности при загрузке
+        setTimeout(initComparisons, 100);
         
-        slider.addEventListener("mousedown", slideReady);
-        window.addEventListener("mouseup", slideFinish);
-        slider.addEventListener("touchstart", slideReady, {passive: true});
-        window.addEventListener("touchend", slideFinish, {passive: true});
+        // Обновляем логотип и навигацию, если они есть на этой странице
+        if (typeof animateLogo === 'function') animateLogo();
+        if (typeof setupSmoothScroll === 'function') {
+            setupSmoothScrollForExternalLinks();
+        }
 
-        function slideReady(e) {
-          e.preventDefault();
-          clicked = 1;
-          window.addEventListener("mousemove", slideMove);
-          window.addEventListener("touchmove", slideMove, {passive: false});
+        setupMobileMenu();
+        setupScrollHeader();
+    });
+    
+    // Выносим настройку прокрутки в отдельную функцию
+    function setupSmoothScrollForExternalLinks() {
+        const navLinks = document.querySelectorAll('nav a, .footer-links a, a.btn');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('index.html#')) {
+                    // Просто переходим, т.к. это другая страница
+                } else if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    }
+    
+    // Выносим настройку мобильного меню в отдельную функцию
+    function setupMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const siteHeader = document.getElementById('siteHeader');
+
+        if(mobileMenuToggle && mainNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                siteHeader.classList.toggle('menu-open');
+                mobileMenuToggle.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuToggle.querySelector('i').classList.toggle('fa-times');
+            });
         }
-        function slideFinish() {
-          clicked = 0;
-          window.removeEventListener("mousemove", slideMove);
-          window.removeEventListener("touchmove", slideMove);
+    }
+    
+    // Выносим настройку компактной шапки в отдельную функцию
+    function setupScrollHeader() {
+        const siteHeader = document.getElementById('siteHeader');
+        // Используем throttle для оптимизации обработчика скролла
+        let lastScrollTime = 0;
+        window.addEventListener('scroll', function() {
+            const now = Date.now();
+            if (now - lastScrollTime > 100) { // Обрабатываем событие не чаще чем раз в 100мс
+                lastScrollTime = now;
+                if (window.scrollY > 50) {
+                    siteHeader.classList.add('compact');
+                } else {
+                    siteHeader.classList.remove('compact');
+                }
+            }
+        }, {passive: true}); // Используем passive для улучшения производительности
+    }
+
+    function initComparisons() {
+      const sliders = document.querySelectorAll('.comparison-slider');
+      
+      sliders.forEach(slider => {
+        // Создаем метки До и После
+        const beforeLabel = document.createElement("DIV");
+        beforeLabel.setAttribute("class", "ba-label before-label");
+        beforeLabel.textContent = "ДО";
+        
+        const afterLabel = document.createElement("DIV");
+        afterLabel.setAttribute("class", "ba-label after-label");
+        afterLabel.textContent = "ПОСЛЕ";
+        
+        const img = slider.querySelector('.img-comp-img:first-child');
+        const overlayImg = slider.querySelector('.img-comp-img:nth-child(2)');
+        
+        img.appendChild(beforeLabel);
+        overlayImg.appendChild(afterLabel);
+        
+        // Установка размеров
+        function setDimensions() {
+          const h = img.offsetHeight;
+          const w = img.offsetWidth;
+          
+          slider.style.height = h + "px";
+          overlayImg.style.width = (w / 2) + "px";
+          
+          // Обновляем позицию слайдера если он уже существует
+          const existingSlider = slider.querySelector('.img-comp-slider');
+          if (existingSlider) {
+            existingSlider.style.top = (h / 2) - (existingSlider.offsetHeight / 2) + "px";
+            existingSlider.style.left = (w / 2) - (existingSlider.offsetWidth / 2) + "px";
+          }
         }
-        function slideMove(e) {
-          var pos;
-          if (clicked == 0) return false;
-          pos = getCursorPos(e)
-          if (pos < 0) pos = 0;
-          if (pos > w) pos = w;
-          slide(pos);
+        
+        // Инициализация размеров
+        setDimensions();
+        
+        // Обновление размеров при изменении окна
+        window.addEventListener('resize', setDimensions);
+        
+        // Создаем слайдер только если его еще нет
+        if (!slider.querySelector('.img-comp-slider')) {
+          const slider_btn = document.createElement("DIV");
+          slider_btn.setAttribute("class", "img-comp-slider");
+          slider_btn.innerHTML = '<i class="fas fa-grip-lines-vertical"></i>';
+          
+          slider.appendChild(slider_btn);
+          
+          slider_btn.style.top = (img.offsetHeight / 2) - (slider_btn.offsetHeight / 2) + "px";
+          slider_btn.style.left = (img.offsetWidth / 2) - (slider_btn.offsetWidth / 2) + "px";
+          
+          let clicked = 0;
+          let startX = 0;
+          
+          // Обработчики событий для мыши и тач
+          slider_btn.addEventListener("mousedown", slideReady);
+          slider_btn.addEventListener("touchstart", slideReady);
+          window.addEventListener("mouseup", slideFinish);
+          window.addEventListener("touchend", slideFinish);
+          
+          function slideReady(e) {
+            e.preventDefault();
+            clicked = 1;
+            
+            // Запоминаем начальную позицию для более плавного движения на мобильных
+            if (e.type === 'touchstart') {
+              startX = e.touches[0].clientX;
+            } else {
+              startX = e.clientX;
+            }
+            
+            document.addEventListener("mousemove", slideMove, { passive: false });
+            document.addEventListener("touchmove", slideMove, { passive: false });
+          }
+          
+          function slideFinish() {
+            if (clicked === 0) return;
+            clicked = 0;
+            document.removeEventListener("mousemove", slideMove);
+            document.removeEventListener("touchmove", slideMove);
+          }
+          
+          function slideMove(e) {
+            if (clicked === 0) return;
+            e.preventDefault(); // Предотвращаем скролл на мобильных
+            
+            let pos = getCursorPos(e);
+            // Ограничиваем позицию в пределах изображения
+            pos = Math.max(0, Math.min(img.offsetWidth, pos));
+            slide(pos);
+          }
+          
+          function getCursorPos(e) {
+            const rect = img.getBoundingClientRect();
+            let x;
+            
+            if (e.type === 'touchmove') {
+              x = e.touches[0].clientX;
+            } else {
+              x = e.clientX;
+            }
+            
+            return x - rect.left;
+          }
+          
+          function slide(x) {
+            // Используем requestAnimationFrame для плавной анимации
+            requestAnimationFrame(() => {
+              overlayImg.style.width = x + "px";
+              slider_btn.style.left = x - (slider_btn.offsetWidth / 2) + "px";
+              
+              // Обновляем видимость меток
+              const sliderPosition = x / img.offsetWidth;
+              
+              if (sliderPosition < 0.3) {
+                beforeLabel.style.opacity = '0.4';
+                afterLabel.style.opacity = '1';
+              } else if (sliderPosition > 0.7) {
+                beforeLabel.style.opacity = '1';
+                afterLabel.style.opacity = '0.4';
+              } else {
+                beforeLabel.style.opacity = '1';
+                afterLabel.style.opacity = '1';
+              }
+            });
+          }
         }
-        function getCursorPos(e) {
-          var a, x = 0;
-          e = (e.changedTouches) ? e.changedTouches[0] : e;
-          a = img.getBoundingClientRect();
-          x = e.pageX - a.left;
-          x = x - window.pageXOffset;
-          return x;
-        }
-        function slide(x) {
-          overlayImg.style.width = x + "px";
-          slider.style.left = overlayImg.offsetWidth - (slider.offsetWidth / 2) + "px";
-        }
-      }
+      });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -373,6 +833,56 @@
         });
     });
     </script>
-    <script src="display-images.js"></script>
+    <script src="display-images.js" defer></script>
+    
+    <!-- Добавление анимации с помощью GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация заголовка секции
+        gsap.from('.section-header', {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+        
+        // Анимация элементов сетки
+        gsap.from('.ba-item', {
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'back.out(1.7)',
+            delay: 0.5
+        });
+        
+        // Анимация слайдеров сравнения
+        gsap.from('.img-comp-slider', {
+            scale: 0,
+            rotation: 180,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'elastic.out(1, 0.5)',
+            delay: 1.2
+        });
+    });
+    </script>
+    
+    <!-- Регистрация Service Worker для кэширования и оффлайн-доступа -->
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker зарегистрирован успешно: ', registration.scope);
+          })
+          .catch(function(error) {
+            console.log('Ошибка при регистрации ServiceWorker: ', error);
+          });
+      });
+    }
+    </script>
 </body>
 </html>

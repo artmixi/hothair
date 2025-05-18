@@ -388,6 +388,16 @@ header.compact .logo-container {
     z-index: 0;
 }
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
 .hero:after {
     content: '';
     position: absolute;
@@ -646,76 +656,60 @@ header.compact .logo-container {
     transform: scale(1.2);
 }
 
-/* Галерея */
-.gallery {
-    background-color: var(--darker-bg);
-    position: relative;
-}
-
-.gallery:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        url('images/texture-brushed-alum.png'),
-        linear-gradient(45deg, var(--darker-bg), var(--dark-bg));
-    opacity: 0.05;
-    z-index: 0;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.gallery-item {
+/* Стили для сервисных карточек с изображениями */
+.service-image {
     position: relative;
     overflow: hidden;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    cursor: pointer;
-    aspect-ratio: 1 / 1;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    aspect-ratio: 16 / 9;
 }
 
-.gallery-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    z-index: 2;
-}
-
-.gallery-item:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    opacity: 0;
-    transition: var(--transition);
-    z-index: 1;
-}
-
-.gallery-item:hover:before {
-    opacity: 1;
-}
-
-.gallery-item img {
+.service-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.1);
+}
+
+.service-content {
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.service-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-btn {
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: var(--transition);
 }
 
-.gallery-item:hover img {
+.service-btn:hover {
     transform: scale(1.1);
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+.services-cta {
+    text-align: center;
+    margin-top: 40px;
 }
 
 /* Секция контактов */
