@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HotHAIR - Управление контентом</title>
+    <meta name="description" content="Панель управления контентом салона красоты HotHAIR">
+    <meta name="theme-color" content="#121212">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-content.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+    <header id="siteHeader">
+        <div class="logo-container">
+            <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--accent-color)" />
+                        <stop offset="100%" stop-color="var(--secondary-color)" />
+                    </linearGradient>
+                </defs>
+                <text x="20" y="60" class="logo-text">Hot</text>
+                <text x="80" y="60" class="logo-text highlight">HAIR</text>
+                <path class="logo-design" d="M10,40 C30,20 50,60 70,40 S90,60 110,40" stroke="url(#logoGradient)" stroke-width="3" fill="none" />
+                <circle class="logo-accent" cx="30" cy="30" r="5" />
+                <circle class="logo-accent" cx="90" cy="30" r="5" />
+            </svg>
+        </div>
+        
+        <nav id="mainNav">
+            <ul>
+                <li><a href="index.html">Вернуться на сайт</a></li>
+                <li><a href="admin.html">Управление записями</a></li>
+                <li><a href="#photo-management">Управление фото</a></li>
+                <li><a href="#services-management">Управление услугами</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="admin-panel" class="admin-panel">
+            <div class="container">
+                <h1>Управление <span class="highlight">Контентом</span></h1>
+                
+                <div id="photo-management" class="admin-section">
+                    <h2>Управление <span class="highlight">Фотографиями</span></h2>
+                    
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="upload">Загрузка фото</button>
+                        <button class="tab-btn" data-tab="gallery">Галерея</button>
+                        <button class="tab-btn" data-tab="before-after">До/После</button>
+                        <button class="tab-btn" data-tab="backgrounds">Фоны</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="upload-tab">
+                        <div class="upload-container">
+                            <form id="upload-form" class="upload-form">
+                                <div class="form-group">
+                                    <label for="image-file">Выберите изображение:</label>
+                                    <input type="file" id="image-file" name="image" accept="image/*" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="image-category">Категория:</label>
+                                    <select id="image-category" name="category" required>
+                                        <option value="gallery">Галерея</option>
+                                        <option value="before-after">До/После</option>
+                                        <option value="backgrounds">Фоны</option>
+                                        <option value="services">Услуги</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="image-title">Название (опционально):</label>
+                                    <input type="text" id="image-title" name="title" placeholder="Название изображения">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="image-description">Описание (опционально):</label>
+                                    <textarea id="image-description" name="description" placeholder="Описание изображения"></textarea>
+                                </div>
+                                
+                                <div class="preview-container">
+                                    <h3>Предпросмотр:</h3>
+                                    <div id="image-preview" class="image-preview">
+                                        <div class="no-preview">Выберите изображение для предпросмотра</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group image-editor">
+                                    <h3>Редактирование изображения:</h3>
+                                    <div class="editor-controls">
+                                        <button type="button" id="rotate-left" class="btn editor-btn">
+                                            <i class="fas fa-undo"></i> Повернуть влево
+                                        </button>
+                                        <button type="button" id="rotate-right" class="btn editor-btn">
+                                            <i class="fas fa-redo"></i> Повернуть вправо
+                                        </button>
+                                        <button type="button" id="crop-image" class="btn editor-btn">
+                                            <i class="fas fa-crop"></i> Обрезать
+                                        </button>
+                                        <button type="button" id="reset-image" class="btn editor-btn">
+                                            <i class="fas fa-sync"></i> Сбросить
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn glow">Загрузить изображение</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="gallery-tab">
+                        <div class="gallery-manager">
+                            <h3>Управление галереей</h3>
+                            <div id="gallery-images" class="images-grid">
+                                <!-- Здесь будут отображаться загруженные изображения галереи -->
+                                <div class="no-images">Нет загруженных изображений</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="before-after-tab">
+                        <div class="before-after-manager">
+                            <h3>Управление фото До/После</h3>
+                            <div id="before-after-images" class="images-grid">
+                                <!-- Здесь будут отображаться загруженные изображения До/После -->
+                                <div class="no-images">Нет загруженных изображений</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="backgrounds-tab">
+                        <div class="backgrounds-manager">
+                            <h3>Управление фоновыми изображениями</h3>
+                            <div id="background-images" class="images-grid">
+                                <!-- Здесь будут отображаться загруженные фоновые изображения -->
+                                <div class="no-images">Нет загруженных изображений</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="services-management" class="admin-section">
+                    <h2>Управление <span class="highlight">Услугами</span></h2>
+                    
+                    <div class="services-controls">
+                        <button id="add-service-btn" class="btn glow">
+                            <i class="fas fa-plus"></i> Добавить услугу
+                        </button>
+                    </div>
+                    
+                    <div class="services-list-container">
+                        <table class="services-table">
+                            <thead>
+                                <tr>
+                                    <th>Иконка</th>
+                                    <th>Название</th>
+                                    <th>Описание</th>
+                                    <th>Цена</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="services-list">
+                                <!-- Здесь будут отображаться услуги -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Модальное окно для добавления/редактирования услуги -->
+                    <div id="service-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal">&times;</span>
+                            <h3 id="modal-title">Добавить услугу</h3>
+                            
+                            <form id="service-form">
+                                <input type="hidden" id="service-id">
+                                
+                                <div class="form-group">
+                                    <label for="service-icon">Иконка:</label>
+                                    <input type="text" id="service-icon" placeholder="Например: ✂️, 🎨, 💇‍♀️" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="service-name">Название:</label>
+                                    <input type="text" id="service-name" placeholder="Название услуги" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="service-description">Описание:</label>
+                                    <textarea id="service-description" placeholder="Описание услуги" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="service-price">Цена:</label>
+                                    <input type="text" id="service-price" placeholder="Например: от 1000₽" required>
+                                </div>
+                                
+                                <button type="submit" class="btn glow">Сохранить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; HotHAIR. Панель управления контентом.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="admin-content.js"></script>
+</body>
+</html>
